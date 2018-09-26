@@ -1,25 +1,18 @@
 <template functional>
   <div class="form-section">
     <label v-if="props.label">{{props.label}}</label>
-    <component
-      :is="props.tag"
-      @input="listeners['input']($event.target.value)"
-      :value="props.value"
-      :type="props.type"
-      :name="props.name" />
+    <input type="file" @change="listeners['change']($event.target.files)" />
   </div>
 </template>
 <script>
 export default {
+  model: {
+    event: 'change'
+  },
   props: {
-    test: {},
     label: {
       default: 'Label',
       type: String
-    },
-    type: {
-      type: String,
-      default: 'text'
     },
     name: {
       required: true,
@@ -27,11 +20,6 @@ export default {
     },
     value: {
       required: true
-    },
-    tag: {
-      default: 'input',
-      type: String,
-      validator: tag => ['input', 'textarea'].includes(tag)
     }
   }
 };
@@ -55,8 +43,7 @@ export default {
     font-weight: 600;
   }
 
-  input,
-  textarea {
+  input {
     flex-grow: 1;
     display: block;
     padding: 4px;
