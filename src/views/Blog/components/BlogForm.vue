@@ -2,7 +2,7 @@
   <FormContainer>
     <base-input label="Title" name="title" v-model="title" />
     <image-previewer v-if="image" :image="image" />
-    <file-upload label="Image" name="image" v-model="image" />
+    <file-upload label="Image" name="image" :value="image" @change="imageHandler" />
     <base-input label="Content" name="content" v-model="content" tag="textarea" />
     <base-btn @click="$emit('create', $data)" :text="submitBtnText"/>
   </FormContainer>
@@ -26,15 +26,20 @@ export default {
   data() {
     return (
       this.blog || {
-        title: '',
+        title: 'Creamy mustard chicken',
         image: null,
-        content: ''
+        content: 'This is a great recipe!'
       }
     );
   },
   computed: {
     submitBtnText() {
       return this.type === 'add' ? 'Create' : 'Update';
+    }
+  },
+  methods: {
+    imageHandler(filelist) {
+      this.image = filelist[0];
     }
   },
   components: {

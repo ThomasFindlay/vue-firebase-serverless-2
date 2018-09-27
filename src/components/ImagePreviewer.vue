@@ -16,11 +16,8 @@ export default {
   watch: {
     image: {
       handler(file) {
-        let image = file
-          ? file instanceof File ? file : file.length ? file[0] : null
-          : null;
-        if (image) {
-          this.imagePreview(image);
+        if (file && file instanceof File) {
+          this.imagePreview(file);
         } else {
           this.src = null;
         }

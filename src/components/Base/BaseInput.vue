@@ -6,7 +6,8 @@
       @input="listeners['input']($event.target.value)"
       :value="props.value"
       :type="props.type"
-      :name="props.name" />
+      :name="props.name">{{props.tag === 'textarea' ? props.value : null}}
+    </component>
   </div>
 </template>
 <script>
